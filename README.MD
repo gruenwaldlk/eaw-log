@@ -44,7 +44,7 @@ Depending on the object you pass, you may have to explicitly call `tostring()` o
 
 ```lua
 local my_object = {my = 3, complicated = 4, object = "test"}
-my_logger:trace("A message from %s with a nice floating point number %f.", "Darth Vader", 2.344, tostring(object))
+my_logger:trace("A message from %s with a nice floating point number %f and my complicated object %s", "Darth Vader", 2.344, tostring(object))
 ```
 
 ## Configuration
