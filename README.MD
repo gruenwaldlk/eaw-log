@@ -6,8 +6,6 @@ A logging framework for Star Wars: Empire at War and Star Wars: Empire at War: F
 
 Drop the provided scripts directory into your `mod/data` directory. That's it.
 
-Logging will only occur if you are running the debug build of EaW/FoC.
-
 ## Usage
 
 The framework splits the logging into the logger (the thing you usually call
@@ -88,4 +86,53 @@ This will create a logger (`require("eaw-log/logger")`) that logs all log messag
 
 ## Adding Sinks
 
-You can add sinks by adding them to the `eaw-log/sinks/` directory. The only hard requirement to add a new sink is that it provides a function `sink.__log(self, message)` and is a valid table. See the `eaw-log/sinks/file.lua` as an example.
+You can add sinks by adding them to the `eaw-log/sinks/` directory.
+### Requirements/Sink API
+
+A valid sink must fulfill the following rules:
+
+* The sink is a valid table.
+* The sink provides a function `sink.__log(self: table, message: string)`
+* The sink has a property `sink.__id` of type `string` that contains the name of the file without the `.lua` file ending.
+* The sink has a property `sink.__has_character_limit` of type `bool` that is true if the target has a character limit (e.g. the `Game_Message(message: string)` function.) This will omit the call stack in from the log level `ERROR`.
+
+See the `eaw-log/sinks/file.lua` and `eaw-log/sinks/droid-log.lua` as an example.
+
+----
+
+## Available Sinks
+
+### Sink: File (Recommended)
+
+A sink that logs to the base game's AI log and a configurable file.
+
+#### Caveats
+
+* Only useful with the EaW/FoC debug build.
+
+### Sink: Droid Log
+
+A sink that logs to the game's droid advisor popup and subsequent message log.
+
+#### Caveats
+
+* Only useful with the latest EaW/FoC Steam version.
+* If the log exceeds a (currently unknown) character limit the game will crash to desktop.
+* The log messages may not appear in order of creation in the script.
+* The log messages may overwhelm the droid log.
+
+----
+
+## Changelog
+
+### 2021-01-18 - 2.0.0
+
+* **Features**
+    * New Sink: Droid Log
+* **Changes**
+    * **[BREAKING CHANGE]** Sink API Updated to include `sink.__id` and `sink.__has_character_limit` properties.
+
+### 2020-06-09 - 1.0.0
+
+* **Features**
+    * Initial release
