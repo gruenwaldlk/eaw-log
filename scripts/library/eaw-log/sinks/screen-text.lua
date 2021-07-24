@@ -15,6 +15,9 @@ return {
         return self
     end,
     __log = function(self, message)
+        if not self.__event or not self.__trigger_name then
+            return
+        end
         local msg = tostring(message)
         self.__event.Set_Reward_Parameter(0, msg)
         self.__event.Set_Reward_Parameter(1, tostring(self.__display_time))
