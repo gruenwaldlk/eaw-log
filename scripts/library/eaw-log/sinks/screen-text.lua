@@ -1,7 +1,7 @@
 return {
     __important = true,
     __id = "screen-text",
-    __has_character_limit = false,
+    __has_character_limit = true,
     __event = nil,
     __trigger_name = nil,
     __display_time = 5,
