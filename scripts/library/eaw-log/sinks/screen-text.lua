@@ -14,6 +14,10 @@ return {
         self.__display_time = time
         return self
     end,
+    with_character_limit_enabled = function (self, enable)
+        self.__has_character_limit = enable
+        return self
+    end,
     __log = function(self, message)
         if not self.__event or not self.__trigger_name then
             return
