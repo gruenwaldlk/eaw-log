@@ -110,6 +110,28 @@ A sink that logs to the base game's AI log and a configurable file.
 
 * Only useful with the EaW/FoC debug build.
 
+### Sink: Screen Text
+
+A sink that logs to the ingame screen text display (the display where dialogue is shown).
+
+Usage:
+```lua
+local plot = Get_Story_Plot("STORY_SANDBOX_27_UNDERWORLD.XML")
+local screen_text = plot.Get_Event("Generic_Screen_Text")
+local screen_text_sink = require("eaw-log/sinks/screen-text")
+                           :with_event(screen_text, "GENERIC_SCREEN_TEXT")
+                           :with_character_limit_enabled(false)
+
+Logger = require("eaw-log/logger")
+           :with_sink(screen_text_sink)
+           :with_log_level(3)
+```
+
+#### Caveats
+
+* Only useful with the latest EaW/FoC Steam version.
+* Logging an error in debug mode will crash the game, but works fine in the regular build.
+
 ### Sink: Droid Log
 
 A sink that logs to the game's droid advisor popup and subsequent message log.
@@ -124,6 +146,11 @@ A sink that logs to the game's droid advisor popup and subsequent message log.
 ----
 
 ## Changelog
+
+### 2022-01-18 - 2.1.0
+
+* **Features**
+    * New Sink: Screen Text
 
 ### 2021-01-18 - 2.0.0
 
